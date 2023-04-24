@@ -1,5 +1,7 @@
 def sso(username, token, user_account = None):
-    from databricks.sdk.runtime import sc
+    # from databricks.sdk.runtime import sc
+    from pyspark import SparkContext
+    sc = SparkContext.getOrCreate()
 
     prep_user_account = user_account
     if prep_user_account is not None:
