@@ -1,5 +1,6 @@
 def sso(username, token, user_account = None):
-    from databricks.sdk.runtime import *
+    from databricks.sdk.runtime import 
+
     prep_user_account = user_account
     if prep_user_account is not None:
         prep_user_account = f":{user_account}"
