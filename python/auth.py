@@ -1,11 +1,11 @@
 def sso(username, token, user_account = None):
-    # from databricks.sdk.runtime import sc
     from pyspark import SparkContext
-    sc = SparkContext.getOrCreate()
+    scs = SparkContext.getOrCreate()
 
-    prep_user_account = user_account
-    if prep_user_account is not None:
-        prep_user_account = f":{user_account}"
-    sc._jsc.hadoopConfiguration().set('fs.s3a.access.key', f"{username}:{token}{prep_user_account}")
-    sc._jsc.hadoopConfiguration().set('fs.s3a.secret.key', 'none')
-    sc._jsc.hadoopConfiguration().set("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.BasicAWSCredentialsProvider")
+    key = f"{username}:{token}"
+    if user_account is not None:
+        key = f"{key}:{user_account}"
+
+    scs._jsc.hadoopConfiguration().set('fs.s3a.access.key', key)
+    scs._jsc.hadoopConfiguration().set('fs.s3a.secret.key', 'none')
+    scs._jsc.hadoopConfiguration().set("fs.s3a.aws.credentials.provider", "org.apache.hadoop.fs.s3a.BasicAWSCredentialsProvider")
