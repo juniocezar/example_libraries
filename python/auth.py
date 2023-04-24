@@ -1,4 +1,4 @@
-def sso(username, token, user_account = None):
+def sso(sc, username, token, user_account = None):
     prep_user_account = user_account
     if prep_user_account is not None:
         prep_user_account = f":{user_account}"
